@@ -1,0 +1,25 @@
+<!--pages/post/post.wxml-->
+<view>
+  <form bindsubmit='formSumbit' class='post_form'>
+    <view class='item title clearFix'>
+      <text>标题：</text>
+      <input name="title" value="{{title}}" placeholder="请输入标题" />
+    </view>
+    <view class='item tag clearFix'>
+      <text>标签：</text>
+      <picker bindchange="bindPickerChange" value="{{pickIndex}}" range="{{array}}" class='picker'>
+        <view>
+          {{array[pickIndex]}}
+        </view>
+      </picker>
+      <input name="tag" value="{{tag}}" placeholder="请输入标签" />
+    </view>
+    <view class='post clearFix'>
+      <view>正文：</view>
+      <textarea bindblur="bindTextAreaBlur" auto-height maxlength="-1" value="{{post}}" placeholder="请输入正文" />
+    </view>
+    <view class="btn-area">
+      <button formType="submit">发表</button>
+    </view>
+  </form>
+</view>

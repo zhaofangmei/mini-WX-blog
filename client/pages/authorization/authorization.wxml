@@ -1,0 +1,11 @@
+<!--pages/authorization/authorization.wxml-->
+<view class="container">
+  <!-- 用户登录测试 -->
+  <view class="userinfo">
+    <image class="userinfo-avatar" src="{{logged ? userInfo.avatarUrl : './user-unlogin.png'}}" background-size="cover"></image>
+    <view>
+      <button class="userinfo-login" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
+      <button class="userinfo-back" bindtap='navigateBack'>返回首页</button>
+    </view>
+  </view>
+</view>
