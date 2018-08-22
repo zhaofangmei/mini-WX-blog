@@ -1,12 +1,14 @@
 <!--pages/home/home.wxml-->
 <view class="container">
+<scroll-view class="scroll-container" scroll-y="true" style="height:{{scrollHeight}}px;"  bindscrolltolower="bindDownLoad">
+  <block wx:for="{{homeList}}" wx:for-item="homeList" wx:for-index="index"> 
   <view class='article'>
     <view class="head">
       <image class="avatar"src="./user-unlogin.png" background-size="cover"></image>
       <view class='title'>标题11标题11标题11标题11标题11标题11标题11标题11标题11标题11标题11标题11标题11标题11标题11</view>
     </view>
     <view class='brief'>
-      简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介
+      简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简
     </view>
     <view class="info">
       <text>作者：11</text>
@@ -14,19 +16,6 @@
       <text>标签：tags</text>
     </view>
   </view>
-    <view class='article'>
-    <view class="head">
-      <image class="avatar"src="./user-unlogin.png" background-size="cover"></image>
-      <view class='title'>标题11标题11标题11标题11标题11标题11标题11标题11标题11标题11标题11标题11标题11标题11标题11</view>
-    </view>
-    <view class='brief'>
-      简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介
-    </view>
-    <view class="info">
-      <text>作者：11阿帆啊啊发大幅度</text>
-      <text>日期：2018-08-07</text>
-      <text>标签：tags是打发第三方</text>
-    </view>
-  </view>
-
+  </block>
+</scroll-view>
 </view>

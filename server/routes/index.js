@@ -34,7 +34,23 @@ router.post('/message', controllers.message.post)
 
 router.get('/demo', controllers.demo)
 
-//博客提交
-router.post('/post', controllers.post.post)
+/**
+ * 博客列表
+ * name：用户名
+ * pageSize:每页条数，默认5
+ * pageIndex: 页码，默认1
+ */
+router.get('/home', controllers.post.getPage)
+
+/**
+ * 博客提交
+ * @params {strig} req.body.user
+ * @params {strig} req.body.head
+ * @params {strig} req.body.title
+ * @params {strig} req.body.tag
+ * @params {strig} req.body.post
+ */
+router.post('/post', controllers.post.save)
+
 
 module.exports = router
