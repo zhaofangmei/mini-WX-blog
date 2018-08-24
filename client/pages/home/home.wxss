@@ -14,16 +14,17 @@ page {
   border-bottom: 8rpx solid #F0F0F0;
 }
 .article .head {
-  height: 60rpx;
-  line-height: 60rpx;
+  height: 80rpx;
+  line-height: 80rpx;
   vertical-align: middle;
   margin:0 10rpx;
 }
 .article .head > image {
-  width: 60rpx;
-  height: 60rpx;
+  width: 80rpx;
+  height: 80rpx;
   float: left;
   margin-right: 10rpx;
+  border-radius:50%;
 }
 .article .head .title {
   font-size: 36rpx;
@@ -32,9 +33,10 @@ page {
   white-space:nowrap;
 }
 .article .brief {
+  min-height: 100rpx;
   font-size: 28rpx;
   line-height:40rpx;
-  margin: 10rpx;
+  margin: 20rpx 10rpx;
   display: -webkit-box;
   word-break: break-all;
   text-overflow: ellipsis;

@@ -2,127 +2,100 @@
 const config = require('../../config')
 const util = require('../../utils/util.js')
 
-var pageIndex = 1;
-var GetList = function(that) {
-  wx.request({
-    url: `${config.service.host}/weapp/home`,
-    data: {
-      name: null,
-      pageSize: 5,
-      pageIndex: pageIndex
-    },
-    header: {
-      'Content-Type': 'application/json'
-    },
-    method: 'GET',
-    success: function(res) {
-      if(res.data.code == 0) {
-        that.setData({
-          homeList: res.data.data
-        })
-        pageIndex++;
-      } else {
-        util.showModel('请求失败', res.data.error);
-        return false;
-      }
-    },
-    fail: function (error) {
-      util.showModel('请求失败', error);
-      console.log('request fail', error);
-      return false;
-    }
-  })
-}
-
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    homeList: []
+    complete: true,
+    more: true,
+    pageIndex: 1,
+    pageSize: 5,
+    postList: []
   },
 
-  bindDownLoad: function () {
-    wx.showToast({
-      title: '加载中',
-      icon: 'loading',
-      duration: 400
+  goDeatil: function(e) {
+    let articleId = e.currentTarget.id;
+    wx.navigateTo({
+      url: '../article/article?articleId=' + articleId,
     })
-    var that = this;
-    GetList(that);
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
+  getList: function() {
+    let that = this;
+    let pageIndex = that.data.pageIndex;
+    let pageSize = that.data.pageSize;
+    wx.request({
+      url: `${config.service.host}/weapp/home`,
+      data: {
+        user: null,
+        pageSize: pageSize,
+        pageIndex: pageIndex
+      },
+      header: {
+        'Content-Type': 'application/json'
+      },
+      method: 'GET',
+      success: function(res) {
+        if (res.data.code == 0) {
+          // debugger
+          let pots = res.data.data;
+          
+          pots.forEach(item => {
+            item.ctime = util.formatTime(item.ctime)
+          })
+          that.setData({
+            postList: that.data.postList.concat(pots),
+          })
+          if (pots.length <= 0) {
+            that.setData({
+              more: false
+            })
+          }
+          that.data.pageIndex++
+        } else {
+          util.showModel('请求失败', res.data.error);
+          return false;
+        }
+      },
+      fail: function(error) {
+        util.showModel('请求失败', error);
+        console.log('request fail', error);
+        return false;
+      }
+    })
+  },
+
+  bindDownLoad: function() {
+    var that = this
+    if (!that.data.complete) {
+      return;
+    }
+    if(that.data.more) {
+      that.setData({
+        complete: false
+      })
+      util.showBusy('加载中', 400) 
+      that.getList()
+      that.setData({
+        complete: true
+      })
+    }
+  },
+
   onLoad: function(options) {
-    var that = this;
-    //缓冲提醒
-    wx.showToast({
-      title: '加载中',
-      icon: 'loading',
-      duration: 400
-    })
-    //获取系统的参数，scrollHeight数值,微信必须要设置style:height才能监听滚动事件
+    var that = this
+    util.showBusy('加载中', 400) 
+    //获取scrollHeight数值,微信必须要设置style:height才能监听滚动事件
     wx.getSystemInfo({
       success: function(res) {
-        console.info(res.windowHeight)
+        // console.info(res.windowHeight)
         that.setData({
           scrollHeight: res.windowHeight
         })
       }
-    });
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-    
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-    var that = this;
-    GetList(that);
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
+    })
+    that.getList()
   }
 })

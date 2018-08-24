@@ -1,0 +1,36 @@
+<!--pages/article/article.wxml-->
+<view class="container">
+  <scroll-view class="scroll-container"  scroll-y="true" enable-back-to-top="true" style="height:100%;" >
+    <view class='article'>
+      <view class="head">
+        <image class="avatar"src="{{article.head}}" background-size="cover"></image>
+        <view class='title' >{{article.title}}</view>
+      </view>
+      <view class="info">
+        <text id="{{article.id}}" bindtap='goDeatil'>作者：{{article.user}}</text>
+        <text>日期：{{article.ctime}}</text>
+        <text>标签：{{article.tag}}</text>
+      </view>
+      <view class='content'>
+        {{article.post}}
+      </view>
+    </view>
+  </scroll-view>
+  <view class='operate'>
+    <view>
+      <span id="{{article.id}}" bindtap='editHandler'>编辑</span>
+    </view>
+    <view>
+      <span id="{{article.id}}" bindtap='delHandler'>删除</span>
+    </view>
+    <view>
+      <span id="{{article.id}}" bindtap='reprintHandler'>转载</span>
+    </view>
+    <view>
+      <button class="share-btn" open-type="share">分享</button>
+    </view>
+  </view>
+
+</view>
+
+

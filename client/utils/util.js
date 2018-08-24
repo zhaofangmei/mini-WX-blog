@@ -1,4 +1,6 @@
-const formatTime = date => {
+const formatTime = time => {
+  time = (time.length == 10) ? parseInt(time) * 1000 : parseInt(time)
+  var date = new Date(time);
   const year = date.getFullYear()
   const month = date.getMonth() + 1
   const day = date.getDate()
@@ -6,7 +8,8 @@ const formatTime = date => {
   const minute = date.getMinutes()
   const second = date.getSeconds()
 
-  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+  return [year, month, day].map(formatNumber).join('-') 
+  // return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
 
 const formatNumber = n => {
@@ -16,10 +19,10 @@ const formatNumber = n => {
 
 
 // 显示繁忙提示
-var showBusy = text => wx.showToast({
+var showBusy = (text, duration )=> wx.showToast({
     title: text,
     icon: 'loading',
-    duration: 10000
+  duration: duration
 })
 
 // 显示成功提示

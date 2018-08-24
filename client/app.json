@@ -3,7 +3,9 @@
     "pages/home/home",
     "pages/post/post",
     "pages/authorization/authorization",
-    "pages/me/me"
+    "pages/me/me",
+    "pages/article/article",
+    "pages/eidt/eidt"
   ],
   "window":{
     "backgroundColor":"#FFF",

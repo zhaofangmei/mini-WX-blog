@@ -13,12 +13,39 @@ function _4page(params) {
   return { limit: limit, offset: offset }
 }
 
-async function getPage(ctx, next) {
+async function deleteById(ctx, next) {
+  let id = ctx.query.id;
+  await mysql('t_blog_post').update({server_status: 0}).where('id', id).then(res => {
+    console.log('>>>>>>>>>>getBlogById res', res)
+    ctx.state.code = 0
+    ctx.state.data = res
+  }).catch(err => {
+    ctx.state.code = -1
+    throw new Error(err)
+  })
+
+}
+
+async function getBlogById(ctx, next) {
+  let id = ctx.query.id;
+  await mysql('t_blog_post').select('*').where('id',id).then(res => {
+    console.log('>>>>>>>>>>getBlogById res',res)
+    ctx.state.code = 0
+    ctx.state.data = res
+  }).catch(err => {
+    ctx.state.code = -1
+    throw new Error(err)
+  })
+
+}
+
+async function getBlogList(ctx, next) {
   console.log('>>>>>>>>>>>>>>>ctx.query:', ctx.query)
   let params = ctx.query
   let { limit, offset} = _4page(params)
   // select('*').from('users').limit(10).offset(30).where('id', 1)
-  await mysql('t_blog_post').select('*').limit(limit).offset(offset).then(res => {
+  await mysql('t_blog_post').select('*').limit(limit).offset(offset).where('server_status', 1).orderBy('ctime', 'desc').then(res => {
+    console.log('>>>>>>>>>>>>>>>>>getBlogList res:',res)
     ctx.state.code = 0
     ctx.state.data = res
   }).catch(err => {
@@ -51,5 +78,7 @@ async function save(ctx, next) {
 
 module.exports = {
   save,
-  getPage
+  getBlogList,
+  getBlogById,
+  deleteById
 }

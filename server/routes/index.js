@@ -34,13 +34,21 @@ router.post('/message', controllers.message.post)
 
 router.get('/demo', controllers.demo)
 
+router.get('/article/delete', controllers.post.deleteById);
+
+/**
+ * 博客详情
+ * id：文章ID
+ */
+router.get('/article', controllers.post.getBlogById);
+
 /**
  * 博客列表
- * name：用户名
+ * user：用户名
  * pageSize:每页条数，默认5
  * pageIndex: 页码，默认1
  */
-router.get('/home', controllers.post.getPage)
+router.get('/home', controllers.post.getBlogList)
 
 /**
  * 博客提交

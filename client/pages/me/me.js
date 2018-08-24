@@ -20,7 +20,6 @@ Page({
           userInfo: userInfo
         });
       }
-
     });
 
   },
