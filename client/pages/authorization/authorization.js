@@ -10,6 +10,10 @@ Page({
     backType: 'home'
   },
   bindGetUserInfo: function(e) {
+    debugger
+    let encryptedData = e.detail.encryptedData
+    let iv = e.detail.iv
+    console.log('>>>>>>>>>看这里： ', encryptedData, 'iv: ', iv)
     let backType = this.data.backType;
     if (e.detail.userInfo) { //已授权
       app.globalData.userInfo = e.detail.userInfo;
@@ -24,6 +28,10 @@ Page({
       } else if (backType == 'post') {
         wx.switchTab({
           url: '../post/post',
+        })
+      } else {
+        wx.redirectTo({
+          url: '../article/article?articleId=' + backType
         })
       }
     }

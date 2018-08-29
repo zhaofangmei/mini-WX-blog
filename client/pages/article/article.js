@@ -1,4 +1,5 @@
 // pages/article/article.js
+const app = getApp()
 const config = require('../../config')
 const util = require('../../utils/util.js')
 
@@ -9,7 +10,12 @@ Page({
    */
   data: {
     article: ''
-  
+  },
+
+  goBack: function() {
+    wx.switchTab({
+      url: '../home/home',
+    })
   },
 
   editHandler: function(e) {
@@ -26,7 +32,6 @@ Page({
       success: function (res) {
         if (res.confirm) {
           console.log('用户点击确定')
-
         
         } else if (res.cancel) {
           console.log('用户点击取消')
@@ -36,32 +41,34 @@ Page({
   },
 
   delRequest: function (id) {
-    wx.request({
-      url: `${config.service.host}/weapp//article/delete`,
-      data: { id: id },
-      method: 'GET',
-      header: {
-        'Context-Type': 'application/json'
-      },
-      success: function (res) {
-        if (res.data.code == 0) {
-          debugger
-          util.showSuccess('操作成功');
-          wx.switchTab({
-            url: '../home/home',
-          })
-        } else {
-          util.showModel('请求失败', res.data.error);
-          return false;
-        }
-      },
-      fail: function (err) {
-        util.showModel('请求失败', error);
-        console.log('request fail', error);
-        return false;
-      }
+    console.log(app.globalData)
+    console.log(this.data.article)
+    // wx.request({
+    //   url: `${config.service.host}/weapp//article/delete`,
+    //   data: { id: id },
+    //   method: 'GET',
+    //   header: {
+    //     'Context-Type': 'application/json'
+    //   },
+    //   success: function (res) {
+    //     if (res.data.code == 0) {
+    //       debugger
+    //       util.showSuccess('操作成功');
+    //       wx.switchTab({
+    //         url: '../home/home',
+    //       })
+    //     } else {
+    //       util.showModel('请求失败', res.data.error);
+    //       return false;
+    //     }
+    //   },
+    //   fail: function (err) {
+    //     util.showModel('请求失败', error);
+    //     console.log('request fail', error);
+    //     return false;
+    //   }
 
-    })
+    // })
   },
 
   delHandler: function(e) {
@@ -118,51 +125,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let articleId = options.articleId || ''
     let that = this
-    that.getData(articleId)
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
+    let articleId = options.articleId || ''
+    app.checkUserInfo(function (userInfo, isLogin) {
+      if (!isLogin) {
+        wx.redirectTo({
+          url: '../authorization/authorization?backType=' + articleId,
+        })
+      } else {
+        that.getData(articleId)        
+      }
+    });
   },
 
   /**

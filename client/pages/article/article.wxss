@@ -59,7 +59,7 @@ page {
   background-color: #F0F0F0;
 }
 .container .operate > view {
-  width: 25%;
+  width: 20%;
 }
 .container .operate > view .share-btn{
   display: inline-block;

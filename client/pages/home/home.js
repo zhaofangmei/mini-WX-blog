@@ -1,4 +1,5 @@
 // pages/home/home.js
+const app = getApp()
 const config = require('../../config')
 const util = require('../../utils/util.js')
 
@@ -16,10 +17,12 @@ Page({
   },
 
   goDeatil: function(e) {
+    let that = this;
     let articleId = e.currentTarget.id;
     wx.navigateTo({
       url: '../article/article?articleId=' + articleId,
     })
+
   },
 
   getList: function() {

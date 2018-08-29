@@ -18,6 +18,9 @@
   </scroll-view>
   <view class='operate'>
     <view>
+      <span bindtap='goBack'>返回</span>
+    </view>
+    <view>
       <span id="{{article.id}}" bindtap='editHandler'>编辑</span>
     </view>
     <view>
