@@ -10,7 +10,7 @@
 		"minified": true,
 		"newFeature": true
 	},
-	"appid": "wxde040d315860b2ce",
+	"appid": "",
 	"projectname": "testserver",
 	"compileType": "miniprogram",
 	"condition": {}
