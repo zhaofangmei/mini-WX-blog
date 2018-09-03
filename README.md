@@ -70,6 +70,14 @@ https://www.cnblogs.com/xuzhengzong/p/6943627.html
 
 6、博客详情查看、编辑、删除功能
 
+modal：类似于javascript中的confirm弹框 ：https://developers.weixin.qq.com/miniprogram/dev/api/api-react.html#wxshowmodalobject
+
+首页进入详情页，鉴权操作；鉴权要是在home的判断会出现两次跳转进入详情页，鉴权操作应该在详情页的onload事件判断
+
+
+
+ 
+
  
 
 7、博客评论功能
