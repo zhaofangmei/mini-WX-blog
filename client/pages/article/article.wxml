@@ -1,10 +1,10 @@
 <!--pages/article/article.wxml-->
 <view class="container">
-  <scroll-view class="scroll-container"  scroll-y="true" enable-back-to-top="true" style="height:100%;" >
+  <scroll-view class="scroll-container" scroll-y="true" enable-back-to-top="true" style="height:100%;">
     <view class='article'>
       <view class="head">
-        <image class="avatar"src="{{article.head}}" background-size="cover"></image>
-        <view class='title' >{{article.title}}</view>
+        <image class="avatar" src="{{article.head}}" background-size="cover"></image>
+        <view class='title'>{{article.title}}</view>
       </view>
       <view class="info">
         <text id="{{article.id}}" bindtap='goDeatil'>作者：{{article.user}}</text>
@@ -14,8 +14,21 @@
       <view class='content'>
         {{article.post}}
       </view>
+      <view class='comment'>
+        <view>评论列表</view>
+        <view class='name'>
+        <text>某某某1</text>
+        <text>回复</text>
+        <text>删除</text>
+        </view>
+        <view class='text'>1111111111111111111111</view>
+        <view class='name'>某某某2</view>
+        <view class='text'>@某某某1 22222222222222222222222</view>
+      </view>
+
     </view>
   </scroll-view>
+  <!-- 操作按钮 -->
   <view class='operate'>
     <view>
       <span bindtap='goBack'>返回</span>
@@ -27,13 +40,15 @@
       <span id="{{article.id}}" bindtap='delHandler'>删除</span>
     </view>
     <view>
-      <span id="{{article.id}}" bindtap='reprintHandler'>转载</span>
+      <span id="{{article.id}}" bindtap='commentHandler'>评论</span>
     </view>
     <view>
       <button class="share-btn" open-type="share">分享</button>
     </view>
   </view>
+  <!-- 评论弹框 -->
+  <modal id="modal" hidden="{{hiddenmodal}}" title="评论" confirm-text="提交" cancel-text="取消" bindcancel="cancelModal" bindconfirm="confirmModal">
+    <textarea bindblur="bindTextAreaBlur" auto-height maxlength="-1" value="{{comment}}" placeholder="请输入评论" style='min-height:80px' />
+  </modal>
 
 </view>
-
-

@@ -43,8 +43,11 @@ page {
 .article .content {
   margin: 20rpx 0;
   min-height: 360rpx;
+  max-height: 660rpx;
+  overflow-y: auto;
   border: 1px dotted #B8BCBB;
   padding: 20rpx 10rpx;
+  word-break: break-all;
 }
 .container .operate {
   position: fixed;
@@ -71,4 +74,21 @@ page {
 }
 .container .operate > view .share-btn::after{
   border: none;
+}
+.container .comment {
+ 
+  padding: 20rpx 10rpx 80rpx;
+}
+.container .comment > view:not(:first-child) {
+ font-size: 28rpx;
+}
+.container .comment .name {
+  border-bottom: 1px solid #ccc;
+  padding:10rpx;
+
+}
+.container .comment .text {
+  min-height: 120rpx;
+  padding:10rpx;
+
 }

@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    loading: false,
     tag: '',
     title: '',
     pickIndex: 0,
@@ -17,7 +18,8 @@ Page({
     userInfo: {}
   },
   formSumbit: function(e) {
-    debugger
+    this.data.loading = true
+    let openid = app.globalData.openid
     let title = e.detail.value.title || '';
     let tag = e.detail.value.tag || '';
     let post = this.data.post || '';
@@ -26,7 +28,9 @@ Page({
       util.showModel('参数异常', '标题或正文不可为空！');
       return false;
     }
+    
     let params = {
+      openid: openid,
       user: userInfo.nickName,
       head: userInfo.avatarUrl || '',
       title: title,
@@ -42,9 +46,9 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
+        that.data.loading = false        
         if (res.data.code === 0) {
           util.showSuccess('操作成功！')
-          console.log('!!!!!!!!!!!!:', res.data.data)
           wx.switchTab({
             url: '../home/home',
           })
@@ -55,6 +59,7 @@ Page({
         }
       },
       fail: function (error) {
+        that.data.loading = false                
         util.showModel('请求失败', error);
         console.log('request fail', error);
         return false;

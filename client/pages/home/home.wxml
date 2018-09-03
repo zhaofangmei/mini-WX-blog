@@ -13,7 +13,9 @@
       <view class="info">
         <text>作者：{{post.user}}</text>
         <text>日期：{{post.ctime}}</text>
-        <text>标签：{{post.tag}}</text>
+        <!-- <text>标签：{{post.tag}}</text> -->
+        <text>访问：0 </text>
+        <text>评论：0 </text>
       </view>
     </view>
   </block>

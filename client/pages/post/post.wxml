@@ -19,7 +19,7 @@
       <textarea bindblur="bindTextAreaBlur" auto-height maxlength="-1" value="{{post}}" placeholder="请输入正文" />
     </view>
     <view class="btn-area">
-      <button formType="submit">发表</button>
+      <button loading="{{loading}}" formType="submit">发表</button>
     </view>
   </form>
 </view>

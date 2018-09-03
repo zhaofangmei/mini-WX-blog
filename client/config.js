@@ -6,7 +6,8 @@
 var host = 'https://bvbqgoz9.qcloud.la';
 
 var config = {
-
+    appid: "",
+    secret:"",
     // 下面的地址配合云端 Demo 工作
     service: {
         host,

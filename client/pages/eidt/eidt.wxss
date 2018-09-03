@@ -1,1 +1,76 @@
 /* pages/eidt/eidt.wxss */
+page {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.post_form {
+  width: 100%;
+  font-size: 32rpx;
+}
+
+.post_form .item {
+  border-bottom: 1rpx solid #ccc;
+  height: 68rpx;
+  line-height: 68rpx;
+}
+
+.post_form .item:not(:last-child) {
+  border-bottom: 8rpx solid #f0f0f0;
+}
+
+.post_form .item > text {
+  float: left;
+}
+
+.post_form .item > input {
+  height: 100%;
+  width: 400rpx;
+}
+
+.post_form .title > input, .post_form .tag > input {
+  float: left;
+  margin-left: 20rpx;
+}
+
+.post_form .tag .picker {
+  color: #fff;
+  background-color: #bcb9b9;
+  width: 82rpx;
+  text-align: center;
+  float: left;
+  margin: 0 20rpx;
+  padding: 0 10rpx;
+}
+
+.post_form .post {
+  line-height: 68rpx;
+}
+
+.post_form .post > textarea {
+  width: 100%;
+  min-height: 300rpx;
+  background-color: #fcfcfc;
+  max-height: 381px;
+  overflow: hidden;
+}
+
+.post_form .btn-area > button {
+  font-size: 32rpx;
+  color: #fff;
+  background-color: #1aad19;
+  margin: 20rpx 40rpx;
+}
+
+.clearFix {
+  zoom: 1;
+}
+
+.clearFix:after {
+  content: '';
+  display: block;
+  clear: both;
+}
