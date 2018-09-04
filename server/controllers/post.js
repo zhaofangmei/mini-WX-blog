@@ -55,6 +55,33 @@ async function getBlogList(ctx, next) {
 
 }
 
+async function updateBlogById(ctx, next) {
+  console.log('>>>>>>>>>>>>>>>ctx.request:', ctx.request.body)
+  let query = ctx.request.body || {}
+  let ctime = new Date().getTime()
+  if(query.id) {
+    let id = query.id
+    let params = {
+      tag: query.tag,
+      post: query.post,
+      ctime: ctime
+    }
+    await mysql('t_blog_post').update(params).where('id', id).then(res => {
+      console.log('>>>>>>>>>>updateBlogById res', res)
+      ctx.state.code = 0
+      ctx.state.data = res
+    }).catch(err => {
+      ctx.state.code = -1
+      throw new Error(err)
+    })
+
+  } else {
+  ctx.state.code = -1
+  throw new Error('参数异常！')
+}
+
+}
+
 async function save(ctx, next) {
   console.log('>>>>>>>>>>>>>>>ctx.request:', ctx.request.body)
   let query = ctx.request.body || {};
@@ -80,5 +107,6 @@ module.exports = {
   save,
   getBlogList,
   getBlogById,
-  deleteById
+  deleteById,
+  updateBlogById
 }

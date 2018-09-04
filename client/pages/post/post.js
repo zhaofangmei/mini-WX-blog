@@ -28,7 +28,7 @@ Page({
       util.showModel('参数异常', '标题或正文不可为空！');
       return false;
     }
-    
+
     let params = {
       openid: openid,
       user: userInfo.nickName,
@@ -39,14 +39,14 @@ Page({
     }
     var that = this
     wx.request({
-      url: `${config.service.host}/weapp/post`, 
+      url: `${config.service.host}/weapp/post`,
       method: 'POST',
       data: params,
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success: function (res) {
-        that.data.loading = false        
+      success: function(res) {
+        that.data.loading = false
         if (res.data.code === 0) {
           util.showSuccess('操作成功！')
           wx.switchTab({
@@ -58,8 +58,8 @@ Page({
           return false;
         }
       },
-      fail: function (error) {
-        that.data.loading = false                
+      fail: function(error) {
+        that.data.loading = false
         util.showModel('请求失败', error);
         console.log('request fail', error);
         return false;
@@ -74,7 +74,6 @@ Page({
       pickIndex: pickIndex,
       tag: tag
     })
-
   },
   bindTextAreaBlur: function(e) {
     this.setData({
@@ -85,9 +84,9 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     const that = this;
-    app.checkUserInfo(function (userInfo, isLogin) {
+    app.checkUserInfo(function(userInfo, isLogin) {
       if (!isLogin) {
         wx.redirectTo({
           url: '../authorization/authorization?backType=post',

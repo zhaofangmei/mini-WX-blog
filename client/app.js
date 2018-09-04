@@ -18,7 +18,7 @@ App({
               grant_type: 'authorization_code'
             },
             success: function(res) {
-              console.log('>>>>>>>>！！！！！看这里喂：', JSON.stringify(res.data))
+              console.log('>>>>>>>>：', JSON.stringify(res.data))
               if (res.data) {
                 let session_key = res.data.session_key || ''
                 let openid = res.data.openid || ''

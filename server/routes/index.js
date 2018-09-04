@@ -34,10 +34,15 @@ router.post('/message', controllers.message.post)
 
 router.get('/demo', controllers.demo)
 
+
+/**
+ * 文章删除
+ * id：文章ID
+ */
 router.get('/article/delete', controllers.post.deleteById);
 
 /**
- * 博客详情
+ * 文章详情
  * id：文章ID
  */
 router.get('/article', controllers.post.getBlogById);
@@ -49,6 +54,14 @@ router.get('/article', controllers.post.getBlogById);
  * pageIndex: 页码，默认1
  */
 router.get('/home', controllers.post.getBlogList)
+
+/**
+ * 博客编辑
+ * @params {strig} req.body.id
+ * @params {strig} req.body.tag
+ * @params {strig} req.body.post
+ */
+router.post('/edit', controllers.post.updateBlogById)
 
 /**
  * 博客提交

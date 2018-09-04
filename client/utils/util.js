@@ -1,3 +1,4 @@
+//时间格式化
 const formatTime = time => {
   time = (time.length == 10) ? parseInt(time) * 1000 : parseInt(time)
   var date = new Date(time);
@@ -9,12 +10,30 @@ const formatTime = time => {
   const second = date.getSeconds()
 
   return [year, month, day].map(formatNumber).join('-') 
-  // return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
 
 const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
+}
+
+const deepClone = obj => {
+  const _this = this;
+  var temp = null;
+  if (obj && obj instanceof Array) {
+    temp = [];
+    temp = obj.map(function (item) {
+      return deepClone(item);
+    });
+  } else if (obj && typeof obj === 'object') { // typeof null 的值是 object
+    temp = {};
+    for (let item in obj) {
+      temp[item] = deepClone(obj[item]);
+    }
+  } else {
+    temp = obj;
+  }
+  return temp;
 }
 
 
@@ -42,4 +61,4 @@ var showModel = (title, content) => {
     })
 }
 
-module.exports = { formatTime, showBusy, showSuccess, showModel }
+module.exports = { formatTime, deepClone, showBusy, showSuccess, showModel }
