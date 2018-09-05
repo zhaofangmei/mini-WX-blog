@@ -16,14 +16,16 @@
       </view>
       <view class='comment'>
         <view>评论列表</view>
-        <view class='name'>
-        <text>某某某1</text>
-        <text>回复</text>
-        <text>删除</text>
-        </view>
-        <view class='text'>1111111111111111111111</view>
-        <view class='name'>某某某2</view>
-        <view class='text'>@某某某1 22222222222222222222222</view>
+        <block wx:for="{{commentList}}" wx:for-item="comment" wx:for-index="index">
+          <view class='name'>
+            <text>{{comment.user}} </text>
+            <text>{{comment.ctime}} </text>
+            <span class='reply' data-index="{{index}}" bindtap='replyTo'>回复</span>
+          </view>
+          <view class='text'>
+            <text wx-if='{{comment.replyer}}'>@{{comment.replyer}}</text>{{comment.comment}}
+          </view>
+        </block>
       </view>
 
     </view>
@@ -48,7 +50,7 @@
   </view>
   <!-- 评论弹框 -->
   <modal id="modal" hidden="{{hiddenmodal}}" title="评论" confirm-text="提交" cancel-text="取消" bindcancel="cancelModal" bindconfirm="confirmModal">
-    <textarea bindblur="bindTextAreaBlur" auto-height maxlength="-1" value="{{comment}}" placeholder="请输入评论" style='min-height:80px' />
+    <textarea bindinput="bindTextArea" auto-height maxlength="-1" value="{{comment}}" placeholder="请输入评论" style='min-height:80px' />
   </modal>
 
 </view>

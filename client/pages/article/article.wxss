@@ -1,94 +1,119 @@
 /* pages/article/article.wxss */
+
 page {
-    background: #FFF;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    width: 100%;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
 }
+
 .article {
   width: 100%;
   padding: 20rpx 0;
 }
+
 .article:not(:last-child) {
-  border-bottom: 8rpx solid #F0F0F0;
+  border-bottom: 8rpx solid #f0f0f0;
 }
+
 .article .head {
   height: 80rpx;
   line-height: 80rpx;
   vertical-align: middle;
   margin: 0 10rpx 20rpx;
 }
+
 .article .head > image {
   width: 80rpx;
   height: 80rpx;
   float: left;
   margin-right: 10rpx;
-  border-radius:50%;
+  border-radius: 50%;
 }
+
 .article .head .title {
   font-size: 36rpx;
-  overflow:hidden; 
-  text-overflow:ellipsis;
-  white-space:nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
+
 .article .info {
   font-size: 28rpx;
-  color: #B8BCBB;
+  color: #b8bcbb;
   margin: 20rpx 10rpx;
 }
+
 .article .info > text {
   margin-right: 20rpx;
 }
+
 .article .content {
   margin: 20rpx 0;
   min-height: 360rpx;
-  max-height: 660rpx;
+  max-height: 720rpx;
   overflow-y: auto;
-  border: 1px dotted #B8BCBB;
+  border: 1px dotted #b8bcbb;
   padding: 20rpx 10rpx;
   word-break: break-all;
 }
+
 .container .operate {
   position: fixed;
   bottom: 0;
-  display:flex;
-  width:100%;
-  height:80rpx;
-  line-height:80rpx;
+  display: flex;
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
   text-align: center;
   color: #707070;
   font-size: 32rpx;
-  background-color: #F0F0F0;
+  background-color: #f0f0f0;
 }
+
 .container .operate > view {
   width: 20%;
 }
-.container .operate > view .share-btn{
+
+.container .operate > view .share-btn {
   display: inline-block;
   color: #707070;
   font-size: 32rpx;
-  background-color: #F0F0F0;
+  background-color: #f0f0f0;
   border: none;
   padding: 0;
 }
-.container .operate > view .share-btn::after{
+
+.container .operate > view .share-btn::after {
   border: none;
 }
+
 .container .comment {
- 
   padding: 20rpx 10rpx 80rpx;
 }
+
 .container .comment > view:not(:first-child) {
- font-size: 28rpx;
+  font-size: 28rpx;
 }
+
 .container .comment .name {
   border-bottom: 1px solid #ccc;
-  padding:10rpx;
-
+  padding: 10rpx;
+  position: relative;
 }
-.container .comment .text {
-  min-height: 120rpx;
-  padding:10rpx;
 
+.container .comment .text {
+  min-height: 90rpx;
+  padding: 10rpx;
+}
+
+.container .comment .reply {
+  border-radius: 5rpx;
+  margin: 10rpx;
+  border: 1px solid #ddd;
+  padding: 5rpx 10rpx;
+  position: absolute;
+  right: 0;
+  bottom: 0px;
 }

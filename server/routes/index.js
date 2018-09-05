@@ -34,6 +34,19 @@ router.post('/message', controllers.message.post)
 
 router.get('/demo', controllers.demo)
 
+router.get('/comment/list', controllers.comment.getDataByPostId);
+
+/**
+ * 评论提交
+ * @params {strig} req.body.comment
+ * @params {strig} req.body.user
+ * @params {strig} req.body.openid
+ * @params {strig} req.body.postid
+ * @params {strig} req.body.replyer
+ * @params {strig} req.body.ctime
+ */
+router.post('/comment/save', controllers.comment.save)
+
 
 /**
  * 文章删除
@@ -72,6 +85,5 @@ router.post('/edit', controllers.post.updateBlogById)
  * @params {strig} req.body.post
  */
 router.post('/post', controllers.post.save)
-
 
 module.exports = router

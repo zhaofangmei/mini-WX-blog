@@ -9,6 +9,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    replyIndex: '',
+    commentList: [],
+    comment: '',
     hiddenmodal: true,
     isCurrUser: false,
     article: ''
@@ -31,15 +34,82 @@ Page({
     }
   },
 
+  replyTo: function(e) {
+    let replyIndex = parseInt(e.target.dataset.index)
+    this.setData({
+      replyIndex: replyIndex,
+      comment: '',
+      hiddenmodal: !this.data.hiddenmodal
+    })
+  },
+
+  bindTextArea: function(e) {
+    let comment = e.detail.value
+    this.setData({
+      comment: comment
+    })
+  },
+
   //取消按钮
   cancelModal: function() {
     this.setData({
+      comment: '',
       hiddenmodal: true
     });
   },
   //确认按钮
   confirmModal: function() {
+    debugger
+    let comment = this.data.comment
+    let userInfo = app.globalData.userInfo
+    let openid = app.globalData.openid
+    let postid = this.data.article.id
+    let replyIndex = this.data.replyIndex
+    let replyer = ''
+    if (typeof replyIndex == 'number') {
+      let replyComment = this.data.commentList[replyIndex]
+      replyer = replyComment.user
+    }
+    if (!comment) {
+      util.showModel('参数异常', '评论不可为空！');
+      return false;
+    }
+    let params = {
+      comment: comment,
+      user: userInfo.nickName,
+      openid: openid,
+      postid: postid,
+      replyer: replyer
+    }
+
+    wx.request({
+      url: `${config.service.host}/weapp/comment/save`,
+      method: 'POST',
+      data: params,
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function(res) {
+        if (res.data.code === 0) {
+          util.showSuccess('操作成功！')
+        } else {
+          util.showModel('请求失败', res.data.error);
+          return false;
+        }
+      },
+      fail: function(error) {
+        util.showModel('请求失败', error);
+        console.log('request fail', error);
+        return false;
+      }
+    })
+
+    wx.reLaunch({
+      url: '../article/article?articleId=' + postid,
+    })
+
     this.setData({
+      comment: '',
       hiddenmodal: true
     })
   },
@@ -100,6 +170,49 @@ Page({
     }
   },
 
+  getComments: function(postid) {
+    if (!postid) postid = this.data.article.id
+    let that = this
+    wx.request({
+      url: `${config.service.host}/weapp/comment/list`,
+      data: {
+        postid: postid
+      },
+      method: 'GET',
+      header: {
+        'Context-Type': 'application/json'
+      },
+      success: function (res) {
+        if (res.data.code == 0) {
+          let data = res.data.data || []
+          for(var item of data) {
+            item.ctime = util.formatTime(item.ctime)
+          }
+          that.setData({
+            commentList: data
+          })
+
+        } else {
+          that.setData({
+            commentList: []
+          })
+          console.log('请求失败', res.data.error);
+          return false;
+        }
+      },
+      fail: function (err) {
+        that.setData({
+          commentList: []
+        })
+        console.log('请求失败', error);
+        console.log('request fail', error);
+        return false;
+      }
+
+    })
+
+  },
+
   getData: function(id) {
     let that = this
     wx.request({
@@ -156,6 +269,7 @@ Page({
         })
       } else {
         that.getData(articleId)
+        that.getComments(articleId)
       }
     });
   },
