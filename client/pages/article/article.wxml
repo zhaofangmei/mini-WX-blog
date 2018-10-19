@@ -16,16 +16,16 @@
       </view>
       <view class='comment'>
         <view>评论列表</view>
-        <block wx:for="{{commentList}}" wx:for-item="comment" wx:for-index="index">
+        <view wx:for="{{commentList}}" wx:key="item" wx:for-index="index">
           <view class='name'>
-            <text>{{comment.user}} </text>
-            <text>{{comment.ctime}} </text>
+            <text>{{item.user}} </text>
+            <text>{{item.ctime}} </text>
             <span class='reply' data-index="{{index}}" bindtap='replyTo'>回复</span>
           </view>
           <view class='text'>
-            <text wx-if='{{comment.replyer}}'>@{{comment.replyer}}</text>{{comment.comment}}
+            <text wx-if='{{comment.replyer}}'>@{{item.replyer}}</text>{{item.comment}}
           </view>
-        </block>
+        </view>
       </view>
 
     </view>

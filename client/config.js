@@ -6,8 +6,8 @@
 var host = 'https://bvbqgoz9.qcloud.la';
 
 var config = {
-    appid: "",
-    secret:"",
+    appid: "wxde040d315860b2ce",
+    secret:"d9cbaaf0dc7cb736b9f0fe5c5d9f87f9",
     // 下面的地址配合云端 Demo 工作
     service: {
         host,

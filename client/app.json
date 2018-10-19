@@ -22,20 +22,20 @@
     "list": [
       {
         "pagePath": "pages/home/home",
-        "iconPath": "image/tabbar/首页.png",
-        "selectedIconPath": "image/tabbar/首页1.png",
+        "iconPath": "image/tabbar/bar_home.png",
+        "selectedIconPath": "image/tabbar/bar_home1.png",
         "text": "首页"
       },
       {
         "pagePath": "pages/post/post",
-        "iconPath": "image/tabbar/发表.png",
-        "selectedIconPath": "image/tabbar/发表1.png",
+        "iconPath": "image/tabbar/bar_post.png",
+        "selectedIconPath": "image/tabbar/bar_post1.png",
         "text": "发表"
       },
       {
         "pagePath": "pages/me/me",
-        "iconPath": "image/tabbar/我的.png",
-        "selectedIconPath": "image/tabbar/我的1.png",
+        "iconPath": "image/tabbar/bar_mine.png",
+        "selectedIconPath": "image/tabbar/bar_mine1.png",
         "text": "我的"
       }
     ]

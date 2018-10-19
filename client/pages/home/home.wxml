@@ -1,21 +1,21 @@
 <!--pages/home/home.wxml-->
 <view class="container">
 <scroll-view class="scroll-container" bindscrolltolower="bindDownLoad" scroll-y="true" enable-back-to-top="true" style="height:{{scrollHeight}}px;" >
-  <block wx:for="{{postList}}" wx:for-item="post" wx:for-index="index"> 
+  <block wx:for="{{postList}}" wx:key="item" wx:for-index="index"> 
     <view class='article'>
       <view class="head">
-        <image class="avatar"src="{{post.head}}" background-size="cover"></image>
-        <view class='title' id="{{post.id}}" bindtap='goDeatil'>{{post.title}}</view>
+        <image class="avatar"src="{{item.head}}" background-size="cover"></image>
+        <view class='title' id="{{item.id}}" bindtap='goDeatil'>{{item.title}}</view>
       </view>
-      <view class='brief' id="{{post.id}}" bindtap='goDeatil'>
-        {{post.post}}
+      <view class='brief' id="{{item.id}}" bindtap='goDeatil'>
+        {{item.post}}
       </view>
       <view class="info">
-        <text>作者：{{post.user}}</text>
-        <text>日期：{{post.ctime}}</text>
-        <!-- <text>标签：{{post.tag}}</text> -->
+        <text>作者：{{item.user}}</text>
+        <text>日期：{{item.ctime}}</text>
+        <!-- <text>标签：{{item.tag}}</text> -->
         <text>访问：0 </text>
-        <text>评论：0 </text>
+        <text>评论：{{item.commentCount}}</text>
       </view>
     </view>
   </block>

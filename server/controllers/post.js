@@ -5,7 +5,7 @@ function _4page(params) {
   pageSize = pageSize > 0 && pageSize < 100 && pageSize || 20;
 
   let pageIndex = params.pageIndex && parseInt(params.pageIndex) || 1;
-  pageIndex = pageIndex > 0 && pageIndex || 1;
+  pageIndex = pageIndex > 0 && pageIndex || 1; 
 
   let limit = pageSize;
   let offset = (pageIndex - 1) * pageSize;
@@ -41,19 +41,26 @@ async function getBlogById(ctx, next) {
 }
 
 async function getBlogList(ctx, next) {
-  console.log('>>>>>>>>>>>>>>>ctx.query:', ctx.query)
-  let params = ctx.query
-  let { limit, offset} = _4page(params)
-  // select('*').from('users').limit(10).offset(30).where('id', 1)
-  await mysql('blog_post').select('*').limit(limit).offset(offset).where('server_status', 1).orderBy('ctime', 'desc').then(res => {
-    console.log('>>>>>>>>>>>>>>>>>getBlogList res:',res)
+  try {
+    console.log(new Date() + '>>>>>>>>>>>>>>>getBlogList ctx.query:', ctx.query)
+    let params = ctx.query
+    let { limit, offset } = _4page(params)
+    // select('*').from('users').limit(10).offset(30).where('id', 1)
+    let postList = await mysql('blog_post').select('*').limit(limit).offset(offset).where('server_status', 1).orderBy('ctime', 'desc')
+    console.log('>>>>>>>>>>>>>>>>111111111postList: ', postList)
+    for(var i = 0; i < postList.length; i++) {
+      let item = postList[i]
+      let postid = item.id
+      let list = await mysql('blog_comment').select('*').where('postid', postid)
+      item.commentCount = list.length 
+    }
+    console.log('>>>>>>>>>>>>>>>>222222222postList: ', postList)
     ctx.state.code = 0
-    ctx.state.data = res
-  }).catch(err => {
+    ctx.state.data = postList
+  } catch (err) {
     ctx.state.code = -1
     throw new Error(err)
-  })
-
+  }
 }
 
 async function updateBlogById(ctx, next) {

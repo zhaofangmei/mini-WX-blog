@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    articleId: '',
     replyIndex: '',
     commentList: [],
     comment: '',
@@ -59,7 +60,6 @@ Page({
   },
   //确认按钮
   confirmModal: function() {
-    debugger
     let comment = this.data.comment
     let userInfo = app.globalData.userInfo
     let openid = app.globalData.openid
@@ -92,6 +92,11 @@ Page({
       success: function(res) {
         if (res.data.code === 0) {
           util.showSuccess('操作成功！')
+          //判断是否有打开过页面
+          if (getCurrentPages().length != 0) {
+            //刷新当前页面的数据
+            getCurrentPages()[getCurrentPages().length - 1].onLoad()
+          }
         } else {
           util.showModel('请求失败', res.data.error);
           return false;
@@ -103,11 +108,7 @@ Page({
         return false;
       }
     })
-
-    wx.reLaunch({
-      url: '../article/article?articleId=' + postid,
-    })
-
+    
     this.setData({
       comment: '',
       hiddenmodal: true
@@ -171,6 +172,7 @@ Page({
   },
 
   getComments: function(postid) {
+    util.loading()
     if (!postid) postid = this.data.article.id
     let that = this
     wx.request({
@@ -207,6 +209,9 @@ Page({
         console.log('请求失败', error);
         console.log('request fail', error);
         return false;
+      },
+      complete: function(res) {
+        util.loaded()
       }
 
     })
@@ -260,16 +265,22 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    let that = this
-    let articleId = options.articleId || ''
+    console.log('article onload......:', app.globalData.openid)
+    let that = this 
+    if (options) {
+      let articleId = options.articleId || ''
+      that.setData({
+        articleId: articleId
+      })
+    }
     app.checkUserInfo(function(userInfo, isLogin) {
       if (!isLogin) {
         wx.redirectTo({
-          url: '../authorization/authorization?backType=' + articleId,
+          url: '../authorization/authorization?backType=' + that.data.articleId,
         })
-      } else {
-        that.getData(articleId)
-        that.getComments(articleId)
+      } else {       
+        that.getData(that.data.articleId)
+        that.getComments(that.data.articleId)
       }
     });
   },

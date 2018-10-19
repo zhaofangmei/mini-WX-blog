@@ -1,5 +1,9 @@
 // pages/authorization/authorization.js
+const qcloud = require('../../vendor/wafer2-client-sdk/index')
+const config = require('../../config')
+const util = require('../../utils/util.js')
 const app = getApp()
+
 
 Page({
 
@@ -10,26 +14,44 @@ Page({
     backType: 'home'
   },
   bindGetUserInfo: function(e) {
-    let backType = this.data.backType;
+    const self = this
+    util.loading()
+    let backType = self.data.backType;
     if (e.detail.userInfo) { //已授权
-      app.globalData.userInfo = e.detail.userInfo;
-      if(backType == 'home') {
-        wx.switchTab({
-          url: '../home/home',
-        })
-      } else if( backType == 'me') {
-        wx.switchTab({
-          url: '../me/me',
-        })
-      } else if (backType == 'post') {
-        wx.switchTab({
-          url: '../post/post',
-        })
-      } else {
-        wx.redirectTo({
-          url: '../article/article?articleId=' + backType
-        })
-      }
+      // app.globalData.userInfo = e.detail.userInfo;
+      qcloud.setLoginUrl(config.service.loginUrl)
+      qcloud.login({
+        success: function (userInfo) {
+          console.log(userInfo)
+          app.globalData.userInfo = userInfo
+          app.globalData.openid = userInfo.openId
+          if (backType == 'home') {
+            wx.switchTab({
+              url: '../home/home',
+            })
+          } else if (backType == 'me') {
+            wx.switchTab({
+              url: '../me/me',
+            })
+          } else if (backType == 'post') {
+            wx.switchTab({
+              url: '../post/post',
+            })
+          } else {
+            wx.redirectTo({
+              url: '../article/article?articleId=' + backType
+            })
+          }
+        },
+        fail: function (err) {
+          util.loaded()
+          console.log('登录失败', err)
+        },
+        complete: function (res) {
+          util.loaded()
+        }
+      })
+      
     }
   },
   navigateBack: function() {

@@ -12,7 +12,7 @@ Page({
     complete: true,
     more: true,
     pageIndex: 1,
-    pageSize: 5,
+    pageSize: 10,
     postList: []
   },
 
@@ -87,17 +87,22 @@ Page({
     }
   },
 
-  onLoad: function(options) {
+  onShow: function() {
+    console.log('home onShow....', app.globalData.userInfo)
     var that = this
-    util.showBusy('加载中', 400) 
+    util.showBusy('加载中', 400)
     //获取scrollHeight数值,微信必须要设置style:height才能监听滚动事件
     wx.getSystemInfo({
-      success: function(res) {
+      success: function (res) {
         // console.info(res.windowHeight)
         that.setData({
           scrollHeight: res.windowHeight
         })
       }
+    })
+    that.setData({
+      pageIndex: 1,
+      postList: []
     })
     that.getList()
   }
