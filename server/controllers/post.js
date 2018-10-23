@@ -28,12 +28,14 @@ async function deleteById(ctx, next) {
 }
 
 async function getBlogById(ctx, next) {
+  console.log('getBlogById>>>>>>>>>>>>>>>>>', ctx)
   let id = ctx.query.id;
   await mysql('blog_post').select('*').where('id',id).then(res => {
     console.log('>>>>>>>>>>getBlogById res',res)
     ctx.state.code = 0
     ctx.state.data = res
   }).catch(err => {
+    console.log('err>>>>>>>>>>>>', err)
     ctx.state.code = -1
     throw new Error(err)
   })
@@ -47,17 +49,16 @@ async function getBlogList(ctx, next) {
     let { limit, offset } = _4page(params)
     // select('*').from('users').limit(10).offset(30).where('id', 1)
     let postList = await mysql('blog_post').select('*').limit(limit).offset(offset).where('server_status', 1).orderBy('ctime', 'desc')
-    console.log('>>>>>>>>>>>>>>>>111111111postList: ', postList)
     for(var i = 0; i < postList.length; i++) {
       let item = postList[i]
       let postid = item.id
       let list = await mysql('blog_comment').select('*').where('postid', postid)
       item.commentCount = list.length 
     }
-    console.log('>>>>>>>>>>>>>>>>222222222postList: ', postList)
     ctx.state.code = 0
     ctx.state.data = postList
   } catch (err) {
+    console.log('err>>>>>>>>>>>>', err)
     ctx.state.code = -1
     throw new Error(err)
   }
@@ -79,14 +80,15 @@ async function updateBlogById(ctx, next) {
       ctx.state.code = 0
       ctx.state.data = res
     }).catch(err => {
+      console.log('err>>>>>>>>>>>>', err)
       ctx.state.code = -1
       throw new Error(err)
     })
 
   } else {
-  ctx.state.code = -1
-  throw new Error('参数异常！')
-}
+    ctx.state.code = -1
+    throw new Error('参数异常！')
+  }
 
 }
 
@@ -99,6 +101,7 @@ async function save(ctx, next) {
       ctx.state.code = 0
       ctx.state.data = res
     }).catch(err => {
+      console.log('err>>>>>>>>>>>>', err)
       ctx.state.code = -1
       throw new Error(err)
     })

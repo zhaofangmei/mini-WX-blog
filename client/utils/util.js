@@ -59,11 +59,12 @@ var showSuccess = text => wx.showToast({
 
 // 显示失败提示
 var showModel = (title, content) => {
+    if (!content) content = ''
+    content = typeof content === 'string' ? content : JSON.stringify(content)
     wx.hideToast();
-
     wx.showModal({
         title,
-        content: JSON.stringify(content),
+        content: content,
         showCancel: false
     })
 }
@@ -88,70 +89,34 @@ const loaded = () => {
   wx.hideLoading()
 }
 
-async function request(options, page, tryout, successCB, failCB) {
-  if (tryout === 0) {
-    return
-  }
-  let tryTmp = 0
-  let result = 0
-  let failTmp = 0
-  while (tryTmp++ < tryout && !result) {
-    if (tryTmp > 2) await sleep(3)
 
-    failTmp = await tryRequest(options)
-
-    if (failTmp.data && (failTmp.data.code || failTmp.data.code === 0)) {
-      result = failTmp
-    }
-  }
-  if (result) {
-    successCB.call(page, result)
-  } else {
-    failCB.call(page, failTmp)
-  }
-
+const request = function(options) {
   if (options.tip) {
-    tip.loaded()
+    this.loading()
   }
-}
-
-async function tryRequest(options) {
-  return new Promise((resolve, reject) => {
-    if (options.tip) {
-      tip.loading()
-    }
+  const promise = new Promise((resolve, reject) => {
     wx.request({
-      method: options.method || 'GET',
-      data: options.data || {},
-      header: options.header || {},
       url: options.url,
-      success: function (res) {
+      data: options.data || {},
+      header: options.header ||  {},
+      method: options.method || 'GET',
+      success: function (res) {     
         resolve(res)
       },
       fail: function (err) {
-        console.log('try err:', err)
-        if (!err.code) {
-          resolve(0)
-        } else {
-          resolve(err)
-          console.log('请求失败url', options.url)
-          console.log('请求失败', err)
-        }
+        console.log('request err', err)
+        reject(err)
       },
-      complete: function (res) {
-        // console.log(res)
+      complete: function(res) {
+        console.log(options.url + ': request res', res)
+        if (options.tip) {
+          this.loaded()
+        }
       }
     })
-  })
-}
+  });
 
-async function sleep(sec) {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      console.log('sleep ' + sec + ' seconds')
-      resolve(true)
-    }, sec * 1000)
-  })
+  return promise;
 }
 
 module.exports = {

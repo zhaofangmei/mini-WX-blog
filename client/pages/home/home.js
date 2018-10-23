@@ -4,10 +4,6 @@ const config = require('../../config')
 const util = require('../../utils/util.js')
 
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     complete: true,
     more: true,
@@ -29,7 +25,7 @@ Page({
     let that = this;
     let pageIndex = that.data.pageIndex;
     let pageSize = that.data.pageSize;
-    wx.request({
+    let options = {
       url: `${config.service.host}/weapp/home`,
       data: {
         user: null,
@@ -39,34 +35,31 @@ Page({
       header: {
         'Content-Type': 'application/json'
       },
-      method: 'GET',
-      success: function(res) {
-        if (res.data.code == 0) {
-          // debugger
-          let pots = res.data.data;
-          
-          pots.forEach(item => {
-            item.ctime = util.formatTime(item.ctime)
-          })
+      method: 'GET'
+    }
+    util.request(options).then((res) => {
+      if (res.data.code == 0) {
+        let pots = res.data.data;
+        pots.forEach(item => {
+          item.ctime = util.formatTime(item.ctime)
+        })
+        that.setData({
+          postList: that.data.postList.concat(pots),
+        })
+        if (pots.length <= 0) {
           that.setData({
-            postList: that.data.postList.concat(pots),
+            more: false
           })
-          if (pots.length <= 0) {
-            that.setData({
-              more: false
-            })
-          }
-          that.data.pageIndex++
-        } else {
-          util.showModel('请求失败', res.data.error);
-          return false;
         }
-      },
-      fail: function(error) {
-        util.showModel('请求失败', error);
-        console.log('request fail', error);
+        that.data.pageIndex++
+      } else {
+        util.showModel('请求失败', res.data.error);
         return false;
       }
+    }, (err) => {
+      util.showModel('请求失败', error);
+      console.log('request fail', error);
+      return false;
     })
   },
 

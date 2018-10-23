@@ -32,9 +32,9 @@
   </scroll-view>
   <!-- 操作按钮 -->
   <view class='operate'>
-    <view>
+    <!-- <view>
       <span bindtap='goBack'>返回</span>
-    </view>
+    </view> -->
     <view>
       <span id="{{article.id}}" bindtap='editHandler'>编辑</span>
     </view>

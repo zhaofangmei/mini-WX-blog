@@ -87,7 +87,7 @@ Page({
       method: 'POST',
       data: params,
       header: {
-        'content-type': 'application/json' // 默认值
+        'content-type': 'application/json'
       },
       success: function(res) {
         if (res.data.code === 0) {
@@ -288,10 +288,7 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
-    return {
-      title: this.data.article.title,
-      path: '/pages/detail/detail?articleId=' + this.data.article.id
-    }
+  onShareAppMessage: function(e) {
+    return app.appShareHandle()
   }
 })
