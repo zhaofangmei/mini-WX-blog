@@ -66,9 +66,12 @@ Page({
     let postid = this.data.article.id
     let replyIndex = this.data.replyIndex
     let replyer = ''
-    if (typeof replyIndex == 'number') {
+    let parentid = ''
+    console.log('>>>>>>>>>replyIndex:', replyIndex)
+    if (typeof replyIndex === 'number') {
       let replyComment = this.data.commentList[replyIndex]
       replyer = replyComment.user
+      parentid = replyComment.id
     }
     if (!comment) {
       util.showModel('参数异常', '评论不可为空！');
@@ -79,36 +82,34 @@ Page({
       user: userInfo.nickName,
       openid: openid,
       postid: postid,
+      parentid: parentid,
       replyer: replyer
     }
-
-    wx.request({
+    let options = {
       url: `${config.service.host}/weapp/comment/save`,
       method: 'POST',
       data: params,
       header: {
         'content-type': 'application/json'
-      },
-      success: function(res) {
-        if (res.data.code === 0) {
-          util.showSuccess('操作成功！')
-          //判断是否有打开过页面
-          if (getCurrentPages().length != 0) {
-            //刷新当前页面的数据
-            getCurrentPages()[getCurrentPages().length - 1].onLoad()
-          }
-        } else {
-          util.showModel('请求失败', res.data.error);
-          return false;
+      }
+    }
+    util.request(options).then((res) => {
+      if (res.data.code === 0) {
+        util.showSuccess('操作成功！')
+        //判断是否有打开过页面
+        if (getCurrentPages().length != 0) {
+          //刷新当前页面的数据
+          getCurrentPages()[getCurrentPages().length - 1].onLoad()
         }
-      },
-      fail: function(error) {
-        util.showModel('请求失败', error);
-        console.log('request fail', error);
+      } else {
+        util.showModel('请求失败', res.data.error);
         return false;
       }
-    })
-    
+    }).catch((error) => {
+      util.showModel('请求失败', error);
+      console.log('request fail', error);
+      return false;
+    });
     this.setData({
       comment: '',
       hiddenmodal: true
@@ -172,10 +173,9 @@ Page({
   },
 
   getComments: function(postid) {
-    util.loading()
     if (!postid) postid = this.data.article.id
     let that = this
-    wx.request({
+    let options = {
       url: `${config.service.host}/weapp/comment/list`,
       data: {
         postid: postid
@@ -184,38 +184,32 @@ Page({
       header: {
         'Context-Type': 'application/json'
       },
-      success: function (res) {
-        if (res.data.code == 0) {
-          let data = res.data.data || []
-          for(var item of data) {
-            item.ctime = util.formatTime(item.ctime)
-          }
-          that.setData({
-            commentList: data
-          })
-
-        } else {
-          that.setData({
-            commentList: []
-          })
-          console.log('请求失败', res.data.error);
-          return false;
+      tip: true
+    }
+    util.request(options).then((res) => {
+      if (res.data.code == 0) {
+        let data = res.data.data || []
+        for(var item of data) {
+          item.ctime = util.formatTime(item.ctime)
         }
-      },
-      fail: function (err) {
+        that.setData({
+          commentList: data
+        })
+      } else {
         that.setData({
           commentList: []
         })
-        console.log('请求失败', error);
-        console.log('request fail', error);
+        console.log('请求失败', res.data.error);
         return false;
-      },
-      complete: function(res) {
-        util.loaded()
       }
-
-    })
-
+    }).catch((err) => {
+      that.setData({
+        commentList: []
+      })
+      console.log('请求失败', error);
+      console.log('request fail', error);
+      return false;
+    });
   },
 
   getData: function(id) {

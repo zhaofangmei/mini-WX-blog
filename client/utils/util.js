@@ -92,7 +92,7 @@ const loaded = () => {
 
 const request = function(options) {
   if (options.tip) {
-    this.loading()
+    loading()
   }
   const promise = new Promise((resolve, reject) => {
     wx.request({
@@ -110,7 +110,7 @@ const request = function(options) {
       complete: function(res) {
         console.log(options.url + ': request res', res)
         if (options.tip) {
-          this.loaded()
+          loaded()
         }
       }
     })

@@ -23,7 +23,7 @@
             <span class='reply' data-index="{{index}}" bindtap='replyTo'>回复</span>
           </view>
           <view class='text'>
-            <text wx-if='{{comment.replyer}}'>@{{item.replyer}}</text>{{item.comment}}
+            <text wx-if='{{item.replyer}}'>@{{item.replyer}}</text>{{item.comment}}
           </view>
         </view>
       </view>

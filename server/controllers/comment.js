@@ -2,8 +2,9 @@ const { mysql } =  require('../qcloud.js')
 
 async function getDataByPostId(ctx, next) {
   let postid = ctx.query.postid;
-  await mysql('blog_comment').select('*').where('postid', postid).then(res => {
+  await mysql('blog_comment').select('*').where('postid', postid).orderBy('ctime', 'desc').then(res => {
     console.log('>>>>>>>>>>getDataByPostId res', res)
+    let all_Tmp = res
     ctx.state.code = 0
     ctx.state.data = res
   }).catch(err => {
