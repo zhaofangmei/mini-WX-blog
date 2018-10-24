@@ -28,17 +28,24 @@ async function deleteById(ctx, next) {
 }
 
 async function getBlogById(ctx, next) {
-  console.log('getBlogById>>>>>>>>>>>>>>>>>', ctx)
-  let id = ctx.query.id;
-  await mysql('blog_post').select('*').where('id',id).then(res => {
-    console.log('>>>>>>>>>>getBlogById res',res)
-    ctx.state.code = 0
-    ctx.state.data = res
-  }).catch(err => {
+  try {
+    console.log('getBlogById>>>>>>>>>>>>>>>>>', ctx)
+    let id = ctx.query.id;
+    await mysql('blog_post').increment('pv', 1).where('id', id)
+    await mysql('blog_post').select('*').where('id', id).then(res => {
+      console.log('>>>>>>>>>>getBlogById res',res)
+      ctx.state.code = 0
+      ctx.state.data = res
+    }).catch(err => {
+      console.log('err>>>>>>>>>>>>', err)
+      ctx.state.code = -1
+      throw new Error(err)
+    })
+  } catch (err) {
     console.log('err>>>>>>>>>>>>', err)
     ctx.state.code = -1
     throw new Error(err)
-  })
+  }
 
 }
 

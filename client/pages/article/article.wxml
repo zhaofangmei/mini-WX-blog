@@ -16,15 +16,29 @@
       </view>
       <view class='comment'>
         <view>评论列表</view>
-        <view wx:for="{{commentList}}" wx:key="item" wx:for-index="index">
-          <view class='name'>
-            <text>{{item.user}} </text>
-            <text>{{item.ctime}} </text>
-            <span class='reply' data-index="{{index}}" bindtap='replyTo'>回复</span>
+        <view wx:for="{{commentList}}" wx:key="item" wx:for-index="index" class='item'>
+          <!-- 父 -->
+          <view>
+            <view class='name'>
+              <text>{{item.user}} </text>
+              <text>{{item.ctime}} </text>
+              <span class='reply' data-item="{{item}}" bindtap='replyTo'>回复</span>
+            </view>
+            <view class='text'>
+              <text>{{item.comment}}</text>
+            </view>
           </view>
-          <view class='text'>
-            <text wx-if='{{item.replyer}}'>@{{item.replyer}}</text>{{item.comment}}
-          </view>
+          <!-- 子 -->
+          <mytree treeData='{{ item.childList }}' bind:replyToEvent='replyToEvent' wx:if="item.childList.length > 0"/>
+
+          <!-- 子 -->
+          <!-- <view wx:if="item.childList.length > 0" wx:for="{{item.childList}}" wx:key="item" wx:for-index="childindex">
+            <view class='text'>
+              <text><text>{{item.user}}@{{item.replyer}} </text> {{item.comment}}</text>
+              <span data-item="{{item}}" bindtap='replyTo' style="color:#3AB2FF;margin-left:10rpx;">回复</span>
+            </view>
+          </view> -->
+
         </view>
       </view>
 

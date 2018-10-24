@@ -14,7 +14,7 @@
         <text>作者：{{item.user}}</text>
         <text>日期：{{item.ctime}}</text>
         <!-- <text>标签：{{item.tag}}</text> -->
-        <text>访问：0 </text>
+        <text>访问：{{item.pv}}</text>
         <text>评论：{{item.commentCount}}</text>
       </view>
     </view>

@@ -10,12 +10,22 @@ Page({
    */
   data: {
     articleId: '',
-    replyIndex: '',
+    replyItem: '',
     commentList: [],
     comment: '',
     hiddenmodal: true,
     isCurrUser: false,
     article: ''
+  },
+
+  replyToEvent: function(e) {
+    let item = e.detail.data
+    console.log('parent...', item)
+    this.setData({
+      replyItem: item,
+      hiddenmodal: false
+    })
+    
   },
 
   goBack: function() {
@@ -36,9 +46,9 @@ Page({
   },
 
   replyTo: function(e) {
-    let replyIndex = parseInt(e.target.dataset.index)
+    let replyItem = e.target.dataset.item
     this.setData({
-      replyIndex: replyIndex,
+      replyItem: replyItem,
       comment: '',
       hiddenmodal: !this.data.hiddenmodal
     })
@@ -64,14 +74,13 @@ Page({
     let userInfo = app.globalData.userInfo
     let openid = app.globalData.openid
     let postid = this.data.article.id
-    let replyIndex = this.data.replyIndex
+    let replyItem = this.data.replyItem
     let replyer = ''
     let parentid = ''
-    console.log('>>>>>>>>>replyIndex:', replyIndex)
-    if (typeof replyIndex === 'number') {
-      let replyComment = this.data.commentList[replyIndex]
-      replyer = replyComment.user
-      parentid = replyComment.id
+    console.log('>>>>>>>>>replyItem:', replyItem)
+    if (replyItem != '') {
+      replyer = replyItem.user
+      parentid = replyItem.id
     }
     if (!comment) {
       util.showModel('参数异常', '评论不可为空！');
@@ -112,6 +121,7 @@ Page({
     });
     this.setData({
       comment: '',
+      replyItem: '',
       hiddenmodal: true
     })
   },
@@ -259,7 +269,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log('article onload......:', app.globalData.openid)
+    // console.log('article onload......:', app.globalData.openid)
     let that = this 
     if (options) {
       let articleId = options.articleId || ''

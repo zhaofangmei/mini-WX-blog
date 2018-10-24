@@ -1,2 +1,18 @@
 <!--pages/me/me.wxml-->
-<text>pages/me/me.wxml</text>
+<view class="container">
+  <!-- 用户登录测试 -->
+  <view class="userinfo">
+    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+  </view>
+  <view class='oper_list'>
+    <view>
+      <button type="primary">我的博客</button>
+    </view>
+    <view>
+      <button type="primary" open-type="contact" session-from="weapp">功能反馈</button>
+    </view>
+    <view>
+      <button type="primary">关于作者</button>
+    </view>
+  </view>
+</view>

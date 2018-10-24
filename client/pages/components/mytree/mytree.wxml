@@ -1,0 +1,8 @@
+<!--pages/components/mytree/mytree.wxml-->
+<view wx:if="treeData.length > 0" wx:for="{{treeData}}" wx:key="item" wx:for-index="index" class="child">
+  <view class='text'>
+    <text><text>{{item.user}}@{{item.replyer}} </text> {{item.comment}}</text>
+    <span data-item="{{item}}" bindtap='replyTo' style="color:#3AB2FF;margin-left:10rpx;">回复</span>
+  </view>
+  <mytree treeData='{{ item.childList }}'  bind:replyToEvent='replyToEvent' wx:if="item.childList.length > 0" />
+</view>

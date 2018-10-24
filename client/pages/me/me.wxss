@@ -1,1 +1,17 @@
 /* pages/me/me.wxss */
+.userinfo {
+  width: 100%;
+  text-align: center;
+  margin: 50rpx auto;
+}
+
+.userinfo-avatar {
+  width: 120rpx;
+  height: 120rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.oper_list > view:not(:last-child) {
+  margin-bottom: 20rpx;
+}

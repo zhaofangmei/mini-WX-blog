@@ -81,7 +81,7 @@ Page({
   },
 
   onShow: function() {
-    console.log('home onShow....', app.globalData.userInfo)
+    // console.log('home onShow....', app.globalData.userInfo)
     var that = this
     util.showBusy('加载中', 400)
     //获取scrollHeight数值,微信必须要设置style:height才能监听滚动事件

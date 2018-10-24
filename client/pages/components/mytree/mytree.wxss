@@ -1,0 +1,4 @@
+/* pages/components/mytree/mytree.wxss */
+.child {
+  margin-left: 20rpx;
+}

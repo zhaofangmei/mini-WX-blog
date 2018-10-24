@@ -108,7 +108,7 @@ const request = function(options) {
         reject(err)
       },
       complete: function(res) {
-        console.log(options.url + ': request res', res)
+        // console.log(options.url + ': request res', res)
         if (options.tip) {
           loaded()
         }

@@ -97,6 +97,10 @@ page {
   font-size: 28rpx;
 }
 
+.container .comment .item:not(:last-child) {
+  margin-bottom: 20rpx;
+}
+
 .container .comment .name {
   border-bottom: 1px solid #ccc;
   padding: 10rpx;
@@ -104,7 +108,7 @@ page {
 }
 
 .container .comment .text {
-  min-height: 90rpx;
+  /* min-height: 90rpx; */
   padding: 10rpx;
 }
 
