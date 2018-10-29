@@ -34,6 +34,8 @@ router.post('/message', controllers.message.post)
 
 router.get('/demo', controllers.demo)
 
+router.get('/post/myblog', controllers.post.getBlogByTag)
+
 router.get('/comment/list', controllers.comment.getDataByPostId);
 
 /**

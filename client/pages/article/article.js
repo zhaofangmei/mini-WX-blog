@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isReload: 0,
     articleId: '',
     replyItem: '',
     commentList: [],
@@ -20,7 +21,7 @@ Page({
 
   replyToEvent: function(e) {
     let item = e.detail.data
-    console.log('parent...', item)
+    // console.log('parent...', item)
     this.setData({
       replyItem: item,
       hiddenmodal: false
@@ -77,7 +78,7 @@ Page({
     let replyItem = this.data.replyItem
     let replyer = ''
     let parentid = ''
-    console.log('>>>>>>>>>replyItem:', replyItem)
+    // console.log('>>>>>>>>>replyItem:', replyItem)
     if (replyItem != '') {
       replyer = replyItem.user
       parentid = replyItem.id
@@ -227,6 +228,7 @@ Page({
     wx.request({
       url: `${config.service.host}/weapp/article`,
       data: {
+        isReload: that.data.isReload,
         id: id
       },
       method: 'GET',
@@ -262,7 +264,6 @@ Page({
       }
 
     })
-
   },
 
   /**
@@ -274,7 +275,12 @@ Page({
     if (options) {
       let articleId = options.articleId || ''
       that.setData({
+        isReload: 0,
         articleId: articleId
+      })
+    } else {
+      that.setData({
+        isReload: 1
       })
     }
     app.checkUserInfo(function(userInfo, isLogin) {

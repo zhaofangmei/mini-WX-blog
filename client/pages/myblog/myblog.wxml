@@ -1,0 +1,16 @@
+<!--pages/myblog/myblog.wxml-->
+<view>
+  <!-- bar -->
+  <view class='bar'>
+    <view class='bar_nav {{currentType == item ? "nav_active" : ""}}' wx:for="{{tags}}" wx:key="item" wx:for-index="index" >
+      <view data-item="{{item}}" bindtap='orderBy'>{{item}}</view>
+    </view>
+  </view>
+  <!-- list -->
+  <view class='list'>
+    <view class='item' wx:for="{{blogs}}" wx:key="item" wx:for-index="index">
+      <view class='title'>{{item.title}}</view>
+      <view class='time'>{{item.ctime}}</view>
+    </view>
+  </view>
+</view>

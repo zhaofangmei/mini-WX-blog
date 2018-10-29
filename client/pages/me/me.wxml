@@ -6,13 +6,13 @@
   </view>
   <view class='oper_list'>
     <view>
-      <button type="primary">我的博客</button>
+      <navigator url="/pages/myblog/myblog" hover-class="navigator-hover">我的博客</navigator>
     </view>
     <view>
       <button type="primary" open-type="contact" session-from="weapp">功能反馈</button>
     </view>
     <view>
-      <button type="primary">关于作者</button>
+      <navigator url="/pages/about/about" hover-class="navigator-hover">关于</navigator>
     </view>
   </view>
 </view>

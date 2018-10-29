@@ -1,0 +1,7 @@
+/* pages/about/about.wxss */
+.aboutus {
+  font-size: 28rpx;
+}
+.aboutus .title {
+    font-size: 36rpx;
+  }

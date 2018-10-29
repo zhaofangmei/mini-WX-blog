@@ -14,6 +14,21 @@ function _4page(params) {
   return { limit: limit, offset: offset }
 }
 
+async function getBlogByTag(ctx, next) {
+  console.log(new Date() + '>>>>>>>>>>>>>>>getBlogByTag ctx.query:', ctx.query)
+  let openid = ctx.query.openid
+  let tag = ctx.query.tag
+  await mysql('blog_post').select('*').where({ 'server_status': 1, openid: openid, tag: tag}).orderBy('ctime', 'desc').then(res => {
+    console.log('>>>>>>>>>>getBlogByTag res', res)
+    ctx.state.code = 0
+    ctx.state.data = res
+  }).catch(err => {
+    ctx.state.code = -1
+    throw new Error(err)
+  })
+
+}
+
 async function deleteById(ctx, next) {
   let id = ctx.query.id;
   await mysql('blog_post').update({server_status: 0}).where('id', id).then(res => {
@@ -31,7 +46,10 @@ async function getBlogById(ctx, next) {
   try {
     console.log('getBlogById>>>>>>>>>>>>>>>>>', ctx)
     let id = ctx.query.id;
-    await mysql('blog_post').increment('pv', 1).where('id', id)
+    let isReload = ctx.query.isReload;
+    if (isReload == 0) {
+      await mysql('blog_post').increment('pv', 1).where('id', id)
+    }
     await mysql('blog_post').select('*').where('id', id).then(res => {
       console.log('>>>>>>>>>>getBlogById res',res)
       ctx.state.code = 0
@@ -126,5 +144,6 @@ module.exports = {
   getBlogList,
   getBlogById,
   deleteById,
-  updateBlogById
+  updateBlogById,
+  getBlogByTag
 }

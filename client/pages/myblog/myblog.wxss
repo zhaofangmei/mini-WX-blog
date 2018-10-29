@@ -1,0 +1,29 @@
+/* pages/myblog/myblog.wxss */
+.bar{
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  font-size: 28rpx;
+  text-align: center;
+}
+.bar .bar_nav {
+  padding: 10rpx 20rpx;
+  margin: 10rpx 20rpx;
+  background-color: #ccc;
+  flex: 1;
+}
+.nav_active {
+  color:#FFFFFF;
+  background-color:#1AAD19 !important;
+}
+.list .item{
+  font-size: 28rpx;
+  display: flex;
+  padding: 10rpx;
+  margin-bottom: 10rpx;
+}
+.list .item .title {
+  flex: 3;
+}
+.list .item .time {
+  flex: 1;
+}

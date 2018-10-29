@@ -5,7 +5,9 @@
     "pages/authorization/authorization",
     "pages/me/me",
     "pages/article/article",
-    "pages/eidt/eidt"
+    "pages/eidt/eidt",
+    "pages/myblog/myblog",
+    "pages/about/about"
   ],
   "window":{
     "backgroundColor":"#FFF",

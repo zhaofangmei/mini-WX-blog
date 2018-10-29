@@ -12,7 +12,7 @@
           {{array[pickIndex]}}
         </view>
       </picker>
-      <input name="tag" value="{{tag}}" placeholder="请输入标签" />
+      <!-- <input name="tag" value="{{tag}}" placeholder="请输入标签" /> -->
     </view>
     <view class='post clearFix'>
       <view>正文：</view>

@@ -33,12 +33,12 @@ Component({
   methods: {
     replyTo: function(e) {
       let item = e.target.dataset.item
-      console.log('child...', item)
+      // console.log('child...', item)
       this.triggerEvent('replyToEvent', { data: item}) //myevent自定义名称事件，父组件中使用
     },
     replyToEvent: function (e) {
       let item = e.detail.data
-      console.log('parent00...', item)
+      // console.log('parent00...', item)
       this.triggerEvent('replyToEvent', { data: item })
 
     },

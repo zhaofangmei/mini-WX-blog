@@ -35,7 +35,8 @@ Page({
       header: {
         'Content-Type': 'application/json'
       },
-      method: 'GET'
+      method: 'GET',
+      tip: true
     }
     util.request(options).then((res) => {
       if (res.data.code == 0) {
@@ -72,7 +73,6 @@ Page({
       that.setData({
         complete: false
       })
-      util.showBusy('加载中', 400) 
       that.getList()
       that.setData({
         complete: true
@@ -83,7 +83,6 @@ Page({
   onShow: function() {
     // console.log('home onShow....', app.globalData.userInfo)
     var that = this
-    util.showBusy('加载中', 400)
     //获取scrollHeight数值,微信必须要设置style:height才能监听滚动事件
     wx.getSystemInfo({
       success: function (res) {

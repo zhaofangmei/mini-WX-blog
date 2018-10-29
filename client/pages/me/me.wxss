@@ -15,3 +15,17 @@
 .oper_list > view:not(:last-child) {
   margin-bottom: 20rpx;
 }
+
+.oper_list > view > navigator {
+  color:#FFFFFF;
+  background-color:#1AAD19;
+  padding-left:14px;
+  padding-right:14px;
+  box-sizing:border-box;
+  font-size:18px;
+  text-align:center;
+  text-decoration:none;
+  line-height:2.55555556;
+  border-radius:5px;
+
+}

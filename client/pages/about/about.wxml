@@ -1,0 +1,17 @@
+<!--pages/about/about.wxml-->
+<view class='aboutus'>
+<!-- 1 -->
+  <view>
+    <view class='title'>关于这里</view>
+    <view class='content'>
+    记录下学习的过程。最近项目少，可以抽点空闲时间，弄个自己的博客了。一砖一瓦都是自己一点一点加上的，那种感觉真的不一样。希望自己能坚持下去！不管是生活还是工作，一直坚持努力下去！也欢迎大家使用哦，记得精神和行动上支持我哦，哈哈
+    </view>
+  </view>
+  <!-- 2 -->
+  <view>
+    <view class='title'>关于我</view>
+    <view class='content'>
+     程序媛一枚。有时候很天真，有时候很忧郁，有时候很高冷，有时候很马大哈......哈哈哈哈哈，肯定是敲代码敲傻了。
+    </view>
+  </view>
+</view>

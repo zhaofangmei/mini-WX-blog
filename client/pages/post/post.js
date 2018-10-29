@@ -21,7 +21,8 @@ Page({
     this.data.loading = true
     let openid = app.globalData.openid
     let title = e.detail.value.title || '';
-    let tag = e.detail.value.tag || '';
+    // let tag = e.detail.value.tag || '';
+    let tag = this.data.tag || '';
     let post = this.data.post || '';
     let userInfo = this.data.userInfo;
     if (!(title && post)) {
