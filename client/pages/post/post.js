@@ -17,6 +17,18 @@ Page({
     post: '',
     userInfo: {}
   },
+  chooseImage: function() {
+    wx.chooseImage({
+      count: 9,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success(res) {
+        console.log(res)
+        // tempFilePath可以作为img标签的src属性显示图片
+        let tempFilePaths = res.tempFilePaths
+      }
+    })
+  },
   formSumbit: function(e) {
     this.data.loading = true
     let openid = app.globalData.openid
@@ -55,6 +67,7 @@ Page({
           })
 
         } else {
+          console.log('request fail', res.data.error);
           util.showModel('请求失败', res.data.error);
           return false;
         }
@@ -64,6 +77,14 @@ Page({
         util.showModel('请求失败', error);
         console.log('request fail', error);
         return false;
+      },
+      complete: function(res) {
+        that.setData({
+          title: '',
+          tag: '',
+          pickIndex: 0,
+          post: ''
+        })
       }
     })
 

@@ -29,7 +29,7 @@ page {
 
 .post_form .item > input {
   height: 100%;
-  width: 400rpx;
+  width: 80%;
 }
 
 .post_form .title > input, .post_form .tag > input {
@@ -49,6 +49,7 @@ page {
 
 .post_form .post {
   line-height: 68rpx;
+  border-bottom:8rpx solid #f0f0f0;
 }
 
 .post_form .post > textarea {
@@ -66,6 +67,34 @@ page {
   margin: 20rpx 40rpx;
 }
 
+.upload{
+  padding: 10rpx;
+  border-bottom:8rpx solid #f0f0f0;
+}
+.upload .icon_item, .upload .spec_icon {
+  display: inline-block;
+  text-align: center;
+  width: 33%;
+  height: 200rpx;
+  float: left;
+}
+.upload .icon_item {
+  line-height: 200rpx;
+}
+.upload .icon_item > image {
+  width: 180rpx;
+  height: 160rpx;
+}
+.upload .spec_icon {
+  box-sizing: border-box;
+  border: 2rpx dashed #ccc;
+  background-color: #F6F6F6;
+}
+.upload .spec_icon .img {
+  width: 81rpx;
+  height: 80rpx;
+  margin-top: 30rpx;
+}
 .clearFix {
   zoom: 1;
 }

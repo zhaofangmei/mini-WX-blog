@@ -52,7 +52,7 @@ page {
 .article .content {
   margin: 20rpx 0;
   min-height: 360rpx;
-  max-height: 720rpx;
+  /* max-height: 720rpx; */
   overflow-y: auto;
   border: 1px dotted #b8bcbb;
   padding: 20rpx 10rpx;

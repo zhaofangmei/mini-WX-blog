@@ -18,6 +18,17 @@
       <view>正文：</view>
       <textarea bindblur="bindTextAreaBlur" auto-height maxlength="-1" value="{{post}}" placeholder="请输入正文" />
     </view>
+    <view class='upload'>
+      <view class='clearFix'>
+        <!-- <view class='icon_item' >
+          <image src='../../image/post/upload.png'></image>
+        </view> -->
+        <view class='spec_icon' bindtap='chooseImage'>
+          <image class='img' src='../../image/post/upload.png'></image>
+          <view>上传图片</view>
+        </view>
+      </view>
+    </view>
     <view class="btn-area">
       <button loading="{{loading}}" formType="submit">发表</button>
     </view>
