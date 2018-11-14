@@ -14,6 +14,13 @@
       <view class='content'>
         {{article.post}}
       </view>
+      <view class='upload'>
+        <view class='clearFix'>
+          <view class='icon_item' wx:for="{{imageList}}"  wx:key="index">
+            <image src="{{item.pic}}" ></image>
+          </view>
+        </view>
+      </view>
       <view class='comment'>
         <view>评论列表</view>
         <view wx:for="{{commentList}}" wx:key="item" wx:for-index="index" class='item'>

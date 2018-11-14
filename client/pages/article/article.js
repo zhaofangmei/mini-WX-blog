@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    imageList: [],
     isReload: 0,
     articleId: '',
     replyItem: '',
@@ -240,9 +241,11 @@ Page({
           let data = res.data.data;
           for (var item of data) {
             item.ctime = util.formatTime(item.ctime)
+            item.imgpath = JSON.parse(item.imgpath)
           }
           that.setData({
-            article: data[0] || ''
+            article: data[0] || '',
+            imageList: data[0].imgpath || [],
           })
           let currOpenId = app.globalData.openid || ''
           let articleOpenId = that.data.article.openid

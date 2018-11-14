@@ -4,4 +4,12 @@
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-} 
+}
+.clearFix {
+  zoom: 1;
+}
+.clearFix:after {
+  content: '';
+  display: block;
+  clear: both;
+}

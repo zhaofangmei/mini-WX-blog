@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    imageList: [],
     loading: false,
     tag: '',
     title: '',
@@ -18,6 +19,8 @@ Page({
     userInfo: {}
   },
   chooseImage: function() {
+    const that = this
+    let imageList = that.data.imageList
     wx.chooseImage({
       count: 9,
       sizeType: ['original', 'compressed'],
@@ -26,6 +29,12 @@ Page({
         console.log(res)
         // tempFilePath可以作为img标签的src属性显示图片
         let tempFilePaths = res.tempFilePaths
+        for (let img of tempFilePaths) {
+          imageList.push({ pic: img})
+        }
+        that.setData({
+          imageList: imageList
+        })
       }
     })
   },
@@ -41,6 +50,7 @@ Page({
       util.showModel('参数异常', '标题或正文不可为空！');
       return false;
     }
+    let imgpath = this.data.imageList || [];
 
     let params = {
       openid: openid,
@@ -48,7 +58,8 @@ Page({
       head: userInfo.avatarUrl || '',
       title: title,
       tag: tag,
-      post: post
+      post: post,
+      imgpath: JSON.stringify(imgpath)
     }
     var that = this
     wx.request({

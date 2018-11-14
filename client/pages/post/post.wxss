@@ -95,12 +95,3 @@ page {
   height: 80rpx;
   margin-top: 30rpx;
 }
-.clearFix {
-  zoom: 1;
-}
-
-.clearFix:after {
-  content: '';
-  display: block;
-  clear: both;
-}

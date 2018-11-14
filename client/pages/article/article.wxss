@@ -121,3 +121,22 @@ page {
   right: 0;
   bottom: 0px;
 }
+
+.upload {
+  padding: 10rpx; 
+  border-bottom:8rpx solid #f0f0f0;
+}
+.upload .icon_item {
+  display: inline-block;
+  text-align: center;
+  width: 33%;
+  height: 200rpx;
+  float: left;
+}
+.upload .icon_item {
+  line-height: 200rpx;
+}
+.upload .icon_item > image {
+  width: 180rpx;
+  height: 160rpx;
+}

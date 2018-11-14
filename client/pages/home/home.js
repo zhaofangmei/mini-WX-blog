@@ -41,25 +41,27 @@ Page({
     util.request(options).then((res) => {
       if (res.data.code == 0) {
         let pots = res.data.data;
-        pots.forEach(item => {
-          item.ctime = util.formatTime(item.ctime)
-        })
-        that.setData({
-          postList: that.data.postList.concat(pots),
-        })
-        if (pots.length <= 0) {
-          that.setData({
-            more: false
+        if (Array.isArray(pots)) {
+          pots.forEach(item => {
+            item.ctime = util.formatTime(item.ctime)
           })
+          that.setData({
+            postList: that.data.postList.concat(pots),
+          })
+          if (pots.length <= 0) {
+            that.setData({
+              more: false
+            })
+          }
+          that.data.pageIndex++
         }
-        that.data.pageIndex++
       } else {
         util.showModel('请求失败', res.data.error);
         return false;
       }
     }, (err) => {
-      util.showModel('请求失败', error);
-      console.log('request fail', error);
+      util.showModel('请求失败', err);
+      console.log('request fail', err);
       return false;
     })
   },
