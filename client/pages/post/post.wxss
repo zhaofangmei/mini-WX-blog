@@ -84,6 +84,8 @@ page {
 .upload .icon_item > image {
   width: 180rpx;
   height: 160rpx;
+  vertical-align:middle;
+  background-color:#f4f4f4;
 }
 .upload .spec_icon {
   box-sizing: border-box;
