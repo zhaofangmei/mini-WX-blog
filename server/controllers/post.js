@@ -98,6 +98,7 @@ async function updateBlogById(ctx, next) {
     let params = {
       tag: query.tag,
       post: query.post,
+      imgpath: query.imgpath,
       ctime: ctime
     }
     await mysql('blog_post').update(params).where('id', id).then(res => {

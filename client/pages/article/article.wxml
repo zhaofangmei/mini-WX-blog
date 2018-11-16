@@ -14,10 +14,11 @@
       <view class='content'>
         {{article.post}}
       </view>
-      <view class='upload'>
+      <!-- 图片列表 -->
+      <view class='upload' wx:if="{{imageList.length > 0}}">
         <view class='clearFix'>
           <view class='icon_item' wx:for="{{imageList}}"  wx:key="index">
-            <image src="{{item.pic}}" ></image>
+            <image src="{{item.pic}}"  data-index='{{index}}' bindtap='previewImg'></image>
           </view>
         </view>
       </view>
@@ -37,15 +38,6 @@
           </view>
           <!-- 子 -->
           <mytree treeData='{{ item.childList }}' bind:replyToEvent='replyToEvent' wx:if="item.childList.length > 0"/>
-
-          <!-- 子 -->
-          <!-- <view wx:if="item.childList.length > 0" wx:for="{{item.childList}}" wx:key="item" wx:for-index="childindex">
-            <view class='text'>
-              <text><text>{{item.user}}@{{item.replyer}} </text> {{item.comment}}</text>
-              <span data-item="{{item}}" bindtap='replyTo' style="color:#3AB2FF;margin-left:10rpx;">回复</span>
-            </view>
-          </view> -->
-
         </view>
       </view>
 

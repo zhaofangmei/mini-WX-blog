@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    imageList: [],    
     loading: false,
     array: ['常用', '爱好', '随笔'],
     originArticle: '',
@@ -19,6 +20,27 @@ Page({
       post: ''
     },
     articleId: ''
+  },
+
+  chooseImage: function () {
+    const that = this
+    let imageList = that.data.imageList
+    wx.chooseImage({
+      count: 9,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success(res) {
+        console.log(res)
+        // tempFilePath可以作为img标签的src属性显示图片
+        let tempFilePaths = res.tempFilePaths
+        for (let img of tempFilePaths) {
+          imageList.push({ pic: img })
+        }
+        that.setData({
+          imageList: imageList
+        })
+      }
+    })
   },
 
   bindPickerChange: function(e) {
@@ -72,18 +94,21 @@ Page({
       return false;
     }
 
-    let tag = e.detail.value.tag || ''
+    // let tag = e.detail.value.tag || ''
+    let tag = this.data.article.tag || '';
     let post = this.data.article.post || ''
     let id = this.data.articleId
     if (!post) {
       util.showModel('提示', '正文不可为空！');
       return false;
     }
+    let imgpath = this.data.imageList || [];
 
     let params = {
       id: id,
       tag: tag,
-      post: post
+      post: post,
+      imgpath: JSON.stringify(imgpath)
     }
 
     var that = this
@@ -132,6 +157,7 @@ Page({
           let data = res.data.data;
           for (var item of data) {
             item.ctime = util.formatTime(item.ctime)
+            item.imgpath = JSON.parse(item.imgpath)
           }
           if (data.length <= 0) return
           let tmp = data[0]
@@ -141,10 +167,10 @@ Page({
             if (item == tag) {
               pickIndex = index
             }
-
           })
 
           that.setData({
+            imageList: data[0].imgpath || [],    
             article: {
               title: tmp.title,
               pickIndex: pickIndex || 0,
@@ -182,51 +208,6 @@ Page({
     this.getData(articleId)
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
   onShareAppMessage: function (e) {
     return app.appShareHandle()
   }
