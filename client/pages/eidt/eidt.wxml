@@ -21,7 +21,10 @@
     <view class='upload'>
       <view class='clearFix'>
         <view class='icon_item' wx:for="{{imageList}}"  wx:key="index">
-          <image src="{{item.pic}}" ></image>
+          <view class='img_box'>
+            <image class='del_img' src='../../image/post/delete.png' data-index="{{index}}" bindtap='delImg'></image> 
+            <image class='upload_img' src="{{item.pic}}" ></image>
+          </view>
         </view>
         <view class='spec_icon' bindtap='chooseImage'>
           <image class='img' src='../../image/post/upload.png'></image>

@@ -81,7 +81,22 @@ page {
 .upload .icon_item {
   line-height: 200rpx;
 }
-.upload .icon_item > image {
+.upload .icon_item .img_box {
+   display: inline-block;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.upload .icon_item .del_img {
+  width: 36rpx;
+  height: 36rpx;
+  vertical-align:middle;
+  position:absolute;
+  right: -12rpx;
+  top: 8rpx;
+  z-index: 5;
+}
+.upload .icon_item .upload_img {
   width: 180rpx;
   height: 160rpx;
   vertical-align:middle;

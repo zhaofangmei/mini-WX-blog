@@ -18,6 +18,17 @@ Page({
     post: '',
     userInfo: {}
   },
+  delImg: function(e) {
+    let index = e.currentTarget.dataset.index
+    let imageList = this.data.imageList
+    console.log(index, imageList)
+    if(index > -1) {
+      imageList.splice(index, 1)
+      this.setData({
+        imageList: imageList
+      })
+    }
+  },
   chooseImage: function() {
     const that = this
     let imageList = that.data.imageList
